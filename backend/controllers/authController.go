@@ -26,7 +26,7 @@ func Register(c *gin.Context) {
 		return
 	}
 
-	// Hash password 
+	
 	hashedPassword, _ := bcrypt.GenerateFromPassword([]byte(input.Password), bcrypt.DefaultCost)
 
 	user := models.User{
@@ -60,18 +60,18 @@ func Login(c *gin.Context) {
 		return
 	}
 
-	// Cek password
+	
 	err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(input.Password))
 	if err != nil {
 		c.JSON(http.StatusUnauthorized, gin.H{"error": "Email atau password salah"})
 		return
 	}
 
-	// Buat JWT Token
+	
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
 		"user_id": user.ID,
 		"role":    user.Role,
-		"exp":     time.Now().Add(time.Hour * 24).Unix(), // Berlaku 24 jam
+		"exp":     time.Now().Add(time.Hour * 24).Unix(), 
 	})
 
 	tokenString, _ := token.SignedString(jwtSecret)

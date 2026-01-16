@@ -1,8 +1,8 @@
 package main
 
 import (
-	"backend/config" // sesuaikan dengan nama modul di go.mod
-	"backend/controllers" // Import controller yang baru dibuat
+	"backend/config" 
+	"backend/controllers" 
 	"github.com/gin-gonic/gin"
 	"backend/middleware"
 	"github.com/gin-contrib/cors"
@@ -13,7 +13,7 @@ func main() {
 
 	r := gin.Default()
 
-	// GUNAKAN DISINI: Izinkan frontend Vite (port 5173) mengakses backend
+	
 	r.Use(cors.New(cors.Config{
 		AllowOrigins:     []string{"http://localhost:5173"},
 		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE"},
@@ -23,18 +23,18 @@ func main() {
 
 	api := r.Group("/api")
 	{
-		// --- Public Routes ---
+		
 		api.POST("/register", controllers.Register)
 		api.POST("/login", controllers.Login)
 		
 
-		// --- Protected Routes (Perlu Login) ---
+		
 		protected := api.Group("/admin")
 		protected.Use(middleware.AuthMiddleware()) 
 		{
 			protected.GET("/dashboard-stats", func(c *gin.Context) { /*...*/ })
 			
-			// Grouping Route Produk
+		
 			productRoutes := protected.Group("/products")
 			{
 				productRoutes.GET("/", controllers.GetProducts)
@@ -52,11 +52,11 @@ func main() {
 					articleRoutes.DELETE("/:id", controllers.DeleteArticle)
 			}
 
-				// Pastikan TIDAK ADA garis miring ganda seperti //users
+			
         userRoutes := protected.Group("/users")
         {
-            userRoutes.GET("/", controllers.GetUsers)      // Ini jadi /api/admin/users/
-            userRoutes.POST("/", controllers.CreateUser)    // Ini jadi /api/admin/users/
+            userRoutes.GET("/", controllers.GetUsers)      
+            userRoutes.POST("/", controllers.CreateUser)    
             userRoutes.DELETE("/:id", controllers.DeleteUser)
         }
 		}

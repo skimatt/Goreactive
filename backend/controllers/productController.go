@@ -8,14 +8,14 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// GET /api/admin/products (Ambil semua produk)
+
 func GetProducts(c *gin.Context) {
 	var products []models.Product
 	config.DB.Find(&products)
 	c.JSON(http.StatusOK, products)
 }
 
-// POST /api/admin/products (Tambah produk baru)
+
 func CreateProduct(c *gin.Context) {
 	var input models.Product
 	if err := c.ShouldBindJSON(&input); err != nil {
@@ -31,7 +31,7 @@ func CreateProduct(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"message": "Produk berhasil ditambah", "data": input})
 }
 
-// GET /api/admin/products/:id (Ambil satu produk)
+
 func GetProductById(c *gin.Context) {
 	var product models.Product
 	id := c.Param("id")
@@ -44,7 +44,7 @@ func GetProductById(c *gin.Context) {
 	c.JSON(http.StatusOK, product)
 }
 
-// PUT /api/admin/products/:id (Update produk)
+
 func UpdateProduct(c *gin.Context) {
 	var product models.Product
 	id := c.Param("id")
@@ -64,7 +64,7 @@ func UpdateProduct(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"message": "Produk berhasil diupdate", "data": product})
 }
 
-// DELETE /api/admin/products/:id (Hapus produk)
+
 func DeleteProduct(c *gin.Context) {
 	var product models.Product
 	id := c.Param("id")
