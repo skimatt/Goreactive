@@ -1,0 +1,15 @@
+# Dependency folders
+node_modules/
+backend/vendor/
+
+# Environment variables (Sangat penting agar password DB tidak bocor)
+.env
+backend/.env
+
+# Build files
+frontend/dist/
+backend/main
+
+# IDE files
+.vscode/
+.idea/
